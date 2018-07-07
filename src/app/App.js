@@ -19,7 +19,17 @@ class App extends Component {
       .catch((err) => {
         console.error('error with animals GET:', err);
       });
-  }
+  };
+
+  formSubmitEvent = (newAnimal) => {
+    animalRequests.postRequest(newAnimal)
+      .then((mashups) => {
+        this.setState({mashups});
+      })
+      .catch((error) => {
+        console.error('There is an error in animals POST', error);
+      });
+  };
 
   render () {
     return (
@@ -31,7 +41,9 @@ class App extends Component {
           <Animals animals={this.state.animals} />
         </div>
         <div className="col-sm-4">
-          <AnimalForm />
+          <AnimalForm
+            onSubmit={this.formSubmitEvent}
+          />
         </div>
       </div>
     );
